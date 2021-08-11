@@ -2,3 +2,5 @@
 /.gradle/
 /build/
 /build/js/packages/edu-react/kotlin/
+/gradlew
+/gradlew.bat
