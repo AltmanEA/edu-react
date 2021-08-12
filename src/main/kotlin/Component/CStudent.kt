@@ -8,7 +8,7 @@ external interface StudentProps : RProps {
     var student: Student
 }
 
-val CStudent = functionalComponent<StudentProps> { props ->
+val CStudent = fc { props: StudentProps ->
     div("student") {
         props.student.let {
             +"${it.firstname} ${it.surname}"
