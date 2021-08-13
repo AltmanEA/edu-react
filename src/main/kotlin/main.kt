@@ -1,9 +1,7 @@
-import Component.student
+import Component.studentList
 import data.studentList
 import kotlinx.browser.document
 import react.dom.h1
-import react.dom.li
-import react.dom.ol
 import react.dom.render
 
 fun main() {
@@ -11,10 +9,6 @@ fun main() {
         h1 {
             +"List of student"
         }
-        ol {
-            studentList.map {
-                li { student(it) }
-            }
-        }
+        studentList(studentList.toTypedArray())
     }
 }
