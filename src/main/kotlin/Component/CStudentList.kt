@@ -16,11 +16,11 @@ interface StudentListState : State {
     var marked: Array<Boolean>
 }
 
-class StudentList : RComponent<StudentListProps, StudentListState>() {
-    init {
-        state.apply {
-            marked = Array(3) { false }
-        }
+class StudentList(props: StudentListProps) :
+    RComponent<StudentListProps, StudentListState>(props) {
+
+    override fun StudentListState.init(props: StudentListProps) {
+        marked = Array(props.students.size) { false }
     }
 
     override fun RBuilder.render() {
@@ -32,7 +32,7 @@ class StudentList : RComponent<StudentListProps, StudentListState>() {
             }
         }
         div {
-            val markedStudents = state.marked.sumOf { if(it) 1L else 0 }
+            val markedStudents = state.marked.sumOf { if (it) 1L else 0 }
             +"$markedStudents marked"
         }
     }
