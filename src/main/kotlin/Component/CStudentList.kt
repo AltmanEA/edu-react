@@ -1,6 +1,7 @@
 package Component
 
 import data.Student
+import hoc.withDisplayNameRP
 import kotlinx.browser.document
 import org.w3c.dom.events.Event
 import react.*
@@ -41,6 +42,6 @@ val CStudentList = fc { props: StudentListProps ->
     }
 }
 fun RBuilder.studentList(students: Array<Student>) =
-    child(CStudentList) {
+    child(withDisplayNameRP("StudentList", CStudentList)) {
         attrs.students = students
     }

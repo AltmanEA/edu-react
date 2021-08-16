@@ -1,6 +1,7 @@
 package Component
 
 import data.Student
+import hoc.withDisplayNameHOC
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.events.Event
 import react.*
@@ -20,7 +21,7 @@ val CStudent = fc { props: StudentProps ->
 }
 
 fun RBuilder.student(student: Student, marked: Boolean, onClick: (Event) -> Unit) =
-    child(CStudent) {
+    child(withDisplayNameHOC("Student", CStudent)) {
         attrs.student = student
         attrs.marked = marked
         attrs.onClick = onClick
