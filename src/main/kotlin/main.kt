@@ -1,14 +1,13 @@
-import Component.studentList
-import data.studentList
+import Component.CApp
 import kotlinx.browser.document
-import react.dom.h1
+import react.child
+import react.createContext
 import react.dom.render
+
+val shortOutput = createContext("Full")
 
 fun main() {
     render(document.getElementById("root")) {
-        h1 {
-            +"List of student"
-        }
-        studentList(studentList.toTypedArray())
+        child(CApp)
     }
 }
