@@ -10,9 +10,3 @@ data class Student (
         get() = "$firstname $surname"
 }
 
-val studentList =
-    arrayListOf(
-        Student("Sheldon", "Cooper"),
-        Student("Leonard", "Hofstadter"),
-        Student("Howard", "Wolowitz")
-    )

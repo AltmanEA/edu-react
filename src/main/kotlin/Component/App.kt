@@ -2,31 +2,38 @@ package Component
 
 import react.Props
 import react.RBuilder
-import react.dom.h1
+import react.dom.h3
 import react.fc
 import react.useState
 import shortOutput
 
-val CApp = fc<Props>("App"){
+val CApp = fc<Props>("App") {
     val (mode, setMode) = useState("Full")
-    val (marked, setMarked) = useState(data.studentList.map { false })
-    val elements = data.studentList.zip(marked)
-    fun onClick(index: Int){
-        setMarked{
-            it.mapIndexed {_index, mark ->
-                if (index==_index)
-                    !mark
+    val (marked, setMarked) = useState(data.lessonsList.map { it.students.map { false } })
+    fun onClick(indexLesson: Int, indexStudent: Int) {
+        setMarked {
+            it.mapIndexed { _indexLesson, lesson ->
+                if (indexLesson == _indexLesson)
+                    lesson.mapIndexed { _indexStudent, student ->
+                        if (indexStudent == _indexStudent)
+                            !student
+                        else
+                            student
+                    }
                 else
-                    mark
+                    lesson
             }
         }
     }
     modePicker(mode, setMode)
-    shortOutput.Provider(mode){
-        h1 {
-            +"List of student"
+    shortOutput.Provider(mode) {
+        data.lessonsList.mapIndexed { index, lesson ->
+            h3 { +lesson.name }
+            markedList(
+                lesson.students.zip(marked[index]),
+                { onClick(index, it) },
+                RBuilder::student
+            )
         }
-        markedList(elements, ::onClick, RBuilder::student)
-//        studentList(data.studentList.toTypedArray())
     }
 }
