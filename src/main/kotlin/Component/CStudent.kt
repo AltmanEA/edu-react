@@ -12,10 +12,7 @@ external interface StudentProps : Props {
 
 val CStudent = fc ("Student") { props: StudentProps ->
     span(if (props.marked) "marked" else "unmarked") {
-        if(useContext(shortOutput)=="Full")
             +props.student.fullName
-        else
-            +props.student.shortName
     }
 }
 

@@ -8,5 +8,7 @@ data class Student (
         get() = "${firstname[0]}. $surname"
     val fullName
         get() = "$firstname $surname"
+    val idName
+        get() = "$firstname$surname"
 }
 
