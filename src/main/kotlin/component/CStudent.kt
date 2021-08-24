@@ -1,9 +1,8 @@
-package Component
+package component
 
 import data.Student
 import react.*
 import react.dom.span
-import shortOutput
 
 external interface StudentProps : Props {
     var student: Student

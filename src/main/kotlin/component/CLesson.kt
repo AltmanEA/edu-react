@@ -1,4 +1,4 @@
-package Component
+package component
 
 import data.Lesson
 import react.Props

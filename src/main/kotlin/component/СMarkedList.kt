@@ -1,9 +1,8 @@
-package Component
+package component
 
 import kotlinx.html.js.onClickFunction
 import react.Props
 import react.RBuilder
-import react.child
 import react.dom.li
 import react.dom.ol
 import react.fc
