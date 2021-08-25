@@ -8,6 +8,7 @@ import react.dom.ol
 import react.fc
 import react.router.dom.*
 import react.useReducer
+import redux.AddStudentToLesson
 import redux.MarkStudent
 import redux.markReducer
 import redux.testState
@@ -45,6 +46,11 @@ val CApp = fc<Props>("App") {
                         { dispatch(MarkStudent(lesson.name, stateList[it].first.idName)) },
                         RBuilder::student
                     )
+
+                    val candidate = (state.students - lesson.students).map { it.idName }
+                    addElement(candidate) {
+                        dispatch(AddStudentToLesson(lesson.name, it))
+                    }
                 }
             }
         )
