@@ -1,86 +1,32 @@
 package component
 
 import react.Props
-import react.RBuilder
-import react.dom.h3
-import react.dom.li
-import react.dom.ol
 import react.fc
-import react.router.dom.*
-import react.useReducer
-import redux.AddStudentToLesson
-import redux.MarkStudent
-import redux.markReducer
-import redux.testState
+import react.router.dom.RouterProps
+import react.router.dom.route
+import react.router.dom.switch
 
 interface NameRouterProps : RouterProps {
     var name: String
 }
 
 val CApp = fc<Props>("App") {
-    val (state, dispatch) = useReducer(markReducer, testState())
+    modePickerContainer {}
     navigator()
     switch {
-        route("/lesson",
+        route("/lessons",
             exact = true,
-            render = {
-                h3 { +"Lessons" }
-                ol {
-                    state.lessons.map { lesson ->
-                        li { routeLink("/lesson/${lesson.name}") { +lesson.name } }
-                    }
-                }
-            }
+            render = { lessonListContainer {} }
         )
-        route("/lesson/:name",
-            render = { routeProps: RouteResultProps<NameRouterProps> ->
-                val lessonName = routeProps.match.params.name
-                val lesson = state.lessons.find { it.name == lessonName }
-                if (lesson == null)
-                    h3 { +"Lesson $lessonName not found" }
-                else {
-                    h3 { +lesson.name }
-                    val stateList = state.getMarkedList(lesson)
-                    markedList(
-                        stateList,
-                        { dispatch(MarkStudent(lesson.name, stateList[it].first.idName)) },
-                        RBuilder::student
-                    )
-
-                    val candidate = (state.students - lesson.students).map { it.idName }
-                    addElement(candidate) {
-                        dispatch(AddStudentToLesson(lesson.name, it))
-                    }
-                }
-            }
+        route("/lessons/:name",
+            render = { lessonContainer {} }
         )
-        route("/student",
+        route("/students",
             exact = true,
-            render = {
-                h3 { +"Students" }
-                ol {
-                    state.students.map { student ->
-                        li { routeLink("/student/${student.idName}") { +student.fullName } }
-                    }
-                }
-            }
+            render = { studentListContainer {} }
         )
-        route("/student/:name",
-            render = { routeProps: RouteResultProps<NameRouterProps> ->
-                val studentMame = routeProps.match.params.name
-                val student = state.students.find { it.idName == studentMame }
-                if (student == null)
-                    h3 { +"Student $studentMame not found" }
-                else {
-                    h3 { +student.fullName }
-                    val stateList = state.getMarkedList(student)
-                    markedList(
-                        stateList,
-                        { dispatch(MarkStudent(stateList[it].first.name, student.idName))},
-                        RBuilder::lesson
-                    )
-                }
-            }
+        route("/students/:name",
+            render = { studentContainer {} }
         )
     }
 }

@@ -1,16 +1,38 @@
 package redux
 
 import data.Lesson
-import react.RReducer
 
-val markReducer: RReducer<State, RAction> =
+fun dataReducer(): Reducer<State?, RAction> =
     { state, action ->
-        when (action) {
-            is MarkStudent -> markStudentNewState(state, action)
-            is AddStudentToLesson -> addStudentToLessonNewState(state, action)
-            else -> state
-        }
+        if (state == null)
+            State()
+        else
+            when (action) {
+                is MarkStudent -> markStudentNewState(state, action)
+                is AddStudentToLesson -> addStudentToLessonNewState(state, action)
+                else -> state
+            }
     }
+
+fun paramReducer(): Reducer<String?, RAction> =
+    { state, action ->
+        if (state == null)
+            "Full"
+        else
+            when (action) {
+                is SetMode -> action.newMode
+                else -> state
+            }
+    }
+
+
+fun fullReducer(): Reducer<FullState, RAction> =
+    combineReducers(
+        mapOf(
+            "mode" to paramReducer(),
+            "data" to dataReducer()
+        )
+    )
 
 private fun addStudentToLessonNewState(state: State, action: AddStudentToLesson): State {
     val student = state.students.find { it.idName == action.studentId }

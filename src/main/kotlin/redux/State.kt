@@ -6,9 +6,9 @@ import data.lessonsList
 import data.studentsList
 
 class State(
-    val lessons: List<Lesson>,
-    val students: List<Student>,
-    val marked: Map<String, Set<String>>
+    val lessons: List<Lesson> = emptyList(),
+    val students: List<Student> = emptyList(),
+    val marked: Map<String, Set<String>> = emptyMap()
 ) {
     fun getMarkedList(lesson: Lesson): List<Pair<Student, Boolean>> {
         val studentsSet = marked[lesson.name] ?: emptySet()
@@ -29,6 +29,11 @@ class State(
             }
 
 }
+
+class FullState(
+    val mode: String,
+    val data: State
+)
 
 fun testState() =
     State(

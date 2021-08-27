@@ -15,7 +15,7 @@ interface AddElementProps : Props {
     var onSelect: (String) -> Unit
 }
 
-fun CAddElement() = fc("SelectElement") { props: AddElementProps ->
+fun cAddElement() = fc("SelectElement") { props: AddElementProps ->
     val selectRef = useRef<SelectExt>()
     select {
         ref = selectRef
@@ -45,7 +45,7 @@ fun RBuilder.addElement(
     elements: List<String>,
     onSelect: (String) -> Unit
 ) =
-    child(CAddElement()) {
+    child(cAddElement()) {
         attrs.elements = elements
         attrs.onSelect = onSelect
     }

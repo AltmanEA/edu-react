@@ -13,7 +13,7 @@ interface MarkedListProps<E> : Props {
     var comp: RBuilder.(E, Boolean) -> Unit
 }
 
-fun <E> CMarkedList() = fc("MarkedList") { props: MarkedListProps<E> ->
+fun <E> cMarkedList() = fc("MarkedList") { props: MarkedListProps<E> ->
     ol {
         props.elements.mapIndexed {index, elem ->
             li {
@@ -29,7 +29,7 @@ fun <E> RBuilder.markedList(
     onClick: (Int) -> Unit,
     comp: RBuilder.(E, Boolean) -> Unit
 ) =
-    child(CMarkedList<E>()) {
+    child(cMarkedList<E>()) {
         attrs.elements = elements
         attrs.onClick = onClick
         attrs.comp = comp
