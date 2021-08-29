@@ -17,7 +17,7 @@ interface StudentLineStateProps : Props {
 
 interface StudentLineProps : StudentLineOwnProps, StudentLineStateProps
 
-val cStudentLine = fc("StudentLine") { props: StudentLineProps ->
+fun cStudentLine() = fc("StudentLine") { props: StudentLineProps ->
     span(if (props.marked) "marked" else "unmarked") {
         if (props.mode == "Full")
             +props.student.fullName
@@ -26,7 +26,7 @@ val cStudentLine = fc("StudentLine") { props: StudentLineProps ->
     }
 }
 
-val studentLineHOC: HOC<StudentLineProps, StudentLineOwnProps> =
+fun studentLineContainer() =
     rConnect<
             FullState,
             StudentLineOwnProps,
@@ -37,15 +37,12 @@ val studentLineHOC: HOC<StudentLineProps, StudentLineOwnProps> =
             student = own.student
             marked = own.marked
         }
-    )
-
-val studentLineContainer: ComponentClass<StudentLineOwnProps> =
-    studentLineHOC(
-        cStudentLine.unsafeCast<ComponentClass<StudentLineProps>>()
+    )(
+        cStudentLine().unsafeCast<ComponentClass<StudentLineProps>>()
     )
 
 fun RBuilder.studentLine(student: Student, marked: Boolean) =
-    child(studentLineContainer) {
+    child(studentLineContainer()) {
         attrs.student = student
         attrs.marked = marked
     }

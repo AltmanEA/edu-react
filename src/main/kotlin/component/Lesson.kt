@@ -18,7 +18,7 @@ interface LessonDispatchProps : Props {
 
 interface LessonProps : LessonStateProps, LessonDispatchProps
 
-val cLesson = fc("Lesson") { props: LessonProps ->
+fun cLesson() = fc("Lesson") { props: LessonProps ->
     val lessonName = useParams<NameRouterProps>()?.name
     val lesson = props.data.lessons.find { it.name == lessonName }
     if (lesson == null)
@@ -39,7 +39,7 @@ val cLesson = fc("Lesson") { props: LessonProps ->
     }
 }
 
-val lessonContainerHOC: HOC<LessonProps, Props> =
+fun lessonContainer() =
     rConnect<
             FullState,
             RAction,
@@ -60,8 +60,6 @@ val lessonContainerHOC: HOC<LessonProps, Props> =
                 dispatch(AddStudentToLesson(lesson, student))
             }
         }
+    )(
+        cLesson().unsafeCast<ComponentClass<LessonProps>>()
     )
-
-val lessonContainer = lessonContainerHOC(
-    cLesson.unsafeCast<ComponentClass<LessonProps>>()
-)

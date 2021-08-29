@@ -10,23 +10,23 @@ interface NameRouterProps : RouterProps {
     var name: String
 }
 
-val CApp = fc<Props>("App") {
-    modePickerContainer {}
+fun cApp() = fc<Props>("App") {
+    (modePickerContainer()) {}
     navigator()
     switch {
         route("/lessons",
             exact = true,
-            render = { lessonListContainer {} }
+            render = { (lessonListContainer()) {} }
         )
         route("/lessons/:name",
-            render = { lessonContainer {} }
+            render = { (lessonContainer()) {} }
         )
         route("/students",
             exact = true,
-            render = { studentListContainer {} }
+            render = { (studentListContainer()) {} }
         )
         route("/students/:name",
-            render = { studentContainer {} }
+            render = { (studentContainer()) {} }
         )
     }
 }

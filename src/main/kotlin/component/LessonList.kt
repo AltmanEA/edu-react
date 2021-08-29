@@ -13,7 +13,7 @@ interface LessonListProps : Props {
     var lessons: List<Lesson>
 }
 
-val cLessonList = fc("LessonList") { props: LessonListProps ->
+fun cLessonList() = fc("LessonList") { props: LessonListProps ->
     h3 { +"Lessons" }
     ol {
         props.lessons.map { lesson ->
@@ -23,7 +23,7 @@ val cLessonList = fc("LessonList") { props: LessonListProps ->
     }
 }
 
-val lessonListHOC: HOC<LessonListProps, Props> =
+fun lessonListContainer() =
     rConnect<
             FullState,
             Props,
@@ -32,9 +32,6 @@ val lessonListHOC: HOC<LessonListProps, Props> =
         mapStateToProps = { state, _ ->
             lessons = state.data.lessons
         }
-    )
-
-val lessonListContainer: ComponentClass<Props> =
-    lessonListHOC(
-        cLessonList.unsafeCast<ComponentClass<LessonListProps>>()
+    )(
+        cLessonList().unsafeCast<ComponentClass<LessonListProps>>()
     )

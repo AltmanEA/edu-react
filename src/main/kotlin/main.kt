@@ -1,11 +1,11 @@
-import component.CApp
+import component.cApp
 import kotlinx.browser.document
 import react.dom.render
 import react.redux.provider
 import react.router.dom.hashRouter
 import redux.*
 
-val store: Store<FullState, RAction, WrapperAction> = createStore(
+fun makeStore(): Store<FullState, RAction, WrapperAction> = createStore(
     fullReducer(),
     FullState("Full", testState()),
     compose(
@@ -16,11 +16,11 @@ val store: Store<FullState, RAction, WrapperAction> = createStore(
 
 
 fun main() {
-    render(document.getElementById("root")) {
-        provider(store) {
-            hashRouter {
-                child(CApp)
-            }
-        }
-    }
+//    render(document.getElementById("root")) {
+//        provider(makeStore()) {
+//            hashRouter {
+//                child(cApp())
+//            }
+//        }
+//    }
 }

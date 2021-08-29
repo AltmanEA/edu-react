@@ -11,14 +11,14 @@ external interface LessonLineProps : Props {
     var marked: Boolean
 }
 
-val cLessonLine = fc ("LessonLine") { props: LessonLineProps ->
+fun cLessonLine() = fc ("LessonLine") { props: LessonLineProps ->
     span(if (props.marked) "marked" else "unmarked") {
         +props.lesson.name
     }
 }
 
 fun RBuilder.lessonLine(lesson: Lesson, marked: Boolean) =
-    child(cLessonLine) {
+    child(cLessonLine()) {
         attrs.lesson = lesson
         attrs.marked = marked
     }

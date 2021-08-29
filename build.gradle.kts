@@ -33,6 +33,12 @@ kotlin {
             commonWebpackConfig {
                 cssSupport.enabled = true
             }
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
+            }
         }
+
     }
 }

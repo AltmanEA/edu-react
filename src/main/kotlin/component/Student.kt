@@ -12,12 +12,12 @@ interface StudentStateProps : Props {
 }
 
 interface StudentDispatchProps : Props {
-    var markLesson: (String, String) ->Unit
+    var markLesson: (String, String) -> Unit
 }
 
-interface StudentProps: StudentStateProps, StudentDispatchProps
+interface StudentProps : StudentStateProps, StudentDispatchProps
 
-val cStudent = fc("Student"){props: StudentProps ->
+fun cStudent() = fc("Student") { props: StudentProps ->
     val studentId = useParams<NameRouterProps>()?.name
     val student = props.data.students.find { it.idName == studentId }
     if (student == null)
@@ -33,7 +33,7 @@ val cStudent = fc("Student"){props: StudentProps ->
     }
 }
 
-val studentContainer =
+fun studentContainer() =
     rConnect<
             FullState,
             RAction,
@@ -52,5 +52,5 @@ val studentContainer =
             }
         }
     )(
-        cStudent.unsafeCast<ComponentClass<StudentProps>>()
+        cStudent().unsafeCast<ComponentClass<StudentProps>>()
     )

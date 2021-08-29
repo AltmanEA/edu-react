@@ -15,10 +15,10 @@ interface MarkedListProps<E> : Props {
 
 fun <E> cMarkedList() = fc("MarkedList") { props: MarkedListProps<E> ->
     ol {
-        props.elements.mapIndexed {index, elem ->
+        props.elements.mapIndexed { index, elem ->
             li {
                 props.comp(this, elem.first, elem.second)
-                attrs.onClickFunction = {props.onClick(index)}
+                attrs.onClickFunction = { props.onClick(index) }
             }
         }
     }

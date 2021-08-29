@@ -7,11 +7,11 @@ import react.dom.ul
 import react.fc
 import react.router.dom.routeLink
 
-val cNavigator = fc<Props>("Navigator") {
+fun cNavigator() = fc<Props>("Navigator") {
     ul {
         li { routeLink("/lessons") { +"Lessons" } }
         li { routeLink("/students") { +"Students" } }
     }
 }
 
-fun RBuilder.navigator() = child(cNavigator) { }
+fun RBuilder.navigator() = child(cNavigator()) { }

@@ -20,7 +20,7 @@ interface ModePickerDispatchProps : Props {
 
 interface ModePickerProps : ModePickerStateProps, ModePickerDispatchProps
 
-val cModePicker = fc("ModePicker") { props: ModePickerProps ->
+fun cModePicker() = fc("ModePicker") { props: ModePickerProps ->
     val modes = listOf("Full", "Short")
     val refs = modes.map { useRef<INPUT>() }
     val onChange: (Event) -> Unit = {
@@ -45,7 +45,7 @@ val cModePicker = fc("ModePicker") { props: ModePickerProps ->
     }
 }
 
-val modePickerContainer =
+fun modePickerContainer() =
     rConnect<
             FullState,
             RAction,
@@ -64,6 +64,6 @@ val modePickerContainer =
             }
         }
     )(
-        cModePicker.unsafeCast<ComponentClass<ModePickerProps>>()
+        cModePicker().unsafeCast<ComponentClass<ModePickerProps>>()
     )
 
