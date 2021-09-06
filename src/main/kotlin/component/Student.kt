@@ -18,7 +18,7 @@ interface StudentDispatchProps : Props {
 interface StudentProps : StudentStateProps, StudentDispatchProps
 
 fun cStudent() = fc("Student") { props: StudentProps ->
-    val studentId = useParams<NameRouterProps>()?.name
+    val studentId = useParams()["name"]
     val student = props.data.students.find { it.idName == studentId }
     if (student == null)
         h3 { +"Student $studentId not found" }

@@ -2,9 +2,7 @@ package component
 
 import react.Props
 import react.fc
-import react.router.dom.RouterProps
-import react.router.dom.route
-import react.router.dom.switch
+import react.router.dom.*
 
 interface NameRouterProps : RouterProps {
     var name: String
@@ -13,21 +11,25 @@ interface NameRouterProps : RouterProps {
 fun cApp() = fc<Props>("App") {
     (modePickerContainer()) {}
     navigator()
-    switch {
-        route("/lessons",
-            exact = true,
-            render = { (lessonListContainer()) {} }
-        )
-        route("/lessons/:name",
-            render = { (lessonContainer()) {} }
-        )
-        route("/students",
-            exact = true,
-            render = { (studentListContainer()) {} }
-        )
-        route("/students/:name",
-            render = { (studentContainer()) {} }
-        )
+    Switch {
+        Route {
+            attrs.path = arrayOf("/lessons")
+            attrs.exact = true
+            (lessonListContainer()) {}
+        }
+        Route{
+            attrs.path = arrayOf("/lessons/:name")
+            (lessonContainer()) {}
+        }
+        Route {
+            attrs.path = arrayOf("/students")
+            attrs.exact = true
+            (studentListContainer()) {}
+        }
+        Route {
+            attrs.path = arrayOf("/students/:name")
+            (studentContainer()) {}
+        }
     }
 }
 

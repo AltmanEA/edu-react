@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.5.21"
+    kotlin("js") version "1.5.30"
 }
 
 group = "ru.altmanea"
@@ -13,10 +13,10 @@ repositories {
 fun kotlinw(target: String): String =
     "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
-val kotlinWrappersVersion = "0.0.1-pre.234-kotlin-1.5.21"
+val kotlinWrappersVersion = "0.0.1-pre.242-kotlin-1.5.30"
 
 dependencies {
-    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test", "1.5.30"))
     implementation(enforcedPlatform(kotlinw("wrappers-bom:${kotlinWrappersVersion}")))
     implementation(kotlinw("react"))
     implementation(kotlinw("react-dom"))
@@ -39,6 +39,5 @@ kotlin {
                 }
             }
         }
-
     }
 }

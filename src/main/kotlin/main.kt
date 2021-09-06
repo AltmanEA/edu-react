@@ -2,7 +2,7 @@ import component.cApp
 import kotlinx.browser.document
 import react.dom.render
 import react.redux.provider
-import react.router.dom.hashRouter
+import react.router.dom.HashRouter
 import redux.*
 
 fun makeStore(): Store<FullState, RAction, WrapperAction> = createStore(
@@ -16,11 +16,11 @@ fun makeStore(): Store<FullState, RAction, WrapperAction> = createStore(
 
 
 fun main() {
-//    render(document.getElementById("root")) {
-//        provider(makeStore()) {
-//            hashRouter {
-//                child(cApp())
-//            }
-//        }
-//    }
+    render(document.getElementById("root")) {
+        provider(makeStore()) {
+            HashRouter {
+                child(cApp())
+            }
+        }
+    }
 }

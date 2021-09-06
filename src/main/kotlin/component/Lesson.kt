@@ -19,7 +19,7 @@ interface LessonDispatchProps : Props {
 interface LessonProps : LessonStateProps, LessonDispatchProps
 
 fun cLesson() = fc("Lesson") { props: LessonProps ->
-    val lessonName = useParams<NameRouterProps>()?.name
+    val lessonName = useParams()["name"]
     val lesson = props.data.lessons.find { it.name == lessonName }
     if (lesson == null)
         h3 { +"Lesson $lessonName not found" }

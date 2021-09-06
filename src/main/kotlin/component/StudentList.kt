@@ -6,7 +6,7 @@ import react.dom.h3
 import react.dom.li
 import react.dom.ol
 import react.redux.rConnect
-import react.router.dom.routeLink
+import react.router.dom.Link
 import redux.FullState
 
 interface StudentListProps : Props {
@@ -17,11 +17,17 @@ fun cStudentList() = fc("StudentList") { props: StudentListProps ->
     h3 { +"Students" }
     ol {
         props.students.map { student ->
-            val name = student.idName
-            li { routeLink("/students/$name") { +name } }
+            val idName = student.idName
+            li {
+                Link {
+                    attrs.to = "/students/$idName"
+                    +student.fullName
+                }
+            }
         }
     }
 }
+
 
 fun studentListContainer() =
     rConnect<

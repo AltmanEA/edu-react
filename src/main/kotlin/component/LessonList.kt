@@ -6,6 +6,7 @@ import react.dom.h3
 import react.dom.li
 import react.dom.ol
 import react.redux.rConnect
+import react.router.dom.Link
 import react.router.dom.routeLink
 import redux.FullState
 
@@ -18,7 +19,12 @@ fun cLessonList() = fc("LessonList") { props: LessonListProps ->
     ol {
         props.lessons.map { lesson ->
             val name = lesson.name
-            li { routeLink("/lessons/$name") { +name } }
+            li {
+                Link {
+                    attrs.to = "/lessons/$name"
+                    +name
+                }
+            }
         }
     }
 }
