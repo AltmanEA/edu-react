@@ -16,11 +16,11 @@ fun makeStore(): Store<FullState, RAction, WrapperAction> = createStore(
 
 
 fun main() {
-    render(document.getElementById("root")) {
-        provider(makeStore()) {
-            HashRouter {
-                child(cApp())
-            }
-        }
-    }
+//    render(document.getElementById("root")) {
+//        provider(makeStore()) {
+//            HashRouter {
+//                child(cApp())
+//            }
+//        }
+//    }
 }
