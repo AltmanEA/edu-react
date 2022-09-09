@@ -1,26 +1,11 @@
-import component.cApp
+import component.CStudentList
 import kotlinx.browser.document
-import react.dom.render
-import react.redux.provider
-import react.router.dom.HashRouter
-import redux.*
-
-fun makeStore(): Store<FullState, RAction, WrapperAction> = createStore(
-    fullReducer(),
-    FullState("Full", testState()),
-    compose(
-        rEnhancer(),
-        js("if(window.__REDUX_DEVTOOLS_EXTENSION__ )window.__REDUX_DEVTOOLS_EXTENSION__ ();else(function(f){return f;});")
-    )
-)
-
+import react.Component
+import react.create
+import react.dom.client.createRoot
 
 fun main() {
-//    render(document.getElementById("root")) {
-//        provider(makeStore()) {
-//            HashRouter {
-//                child(cApp())
-//            }
-//        }
-//    }
+    val container = document.createElement("div")
+    document.body!!.appendChild(container)
+    createRoot(container).render(CStudentList.create())
 }
