@@ -10,7 +10,7 @@ repositories {
 }
 
 val kotlinWrappers = "org.jetbrains.kotlin-wrappers"
-val kotlinWrappersVersion = "1.0.0-pre.381"
+val kotlinWrappersVersion = "1.0.0-pre.391"
 
 dependencies {
     testImplementation(kotlin("test"))
@@ -18,6 +18,7 @@ dependencies {
     implementation("$kotlinWrappers:kotlin-emotion")
     implementation("$kotlinWrappers:kotlin-react")
     implementation("$kotlinWrappers:kotlin-react-dom")
+    implementation("$kotlinWrappers:kotlin-react-router-dom")
 }
 
 kotlin {

@@ -4,3 +4,7 @@
 /build/js/packages/edu-react/kotlin/
 /gradlew
 /gradlew.bat
+/.idea/
+/gradle/
+/karma.config.d/
+/kotlin-js-store/
