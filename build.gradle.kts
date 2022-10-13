@@ -19,6 +19,7 @@ dependencies {
     implementation("$kotlinWrappers:kotlin-react")
     implementation("$kotlinWrappers:kotlin-react-dom")
     implementation("$kotlinWrappers:kotlin-react-router-dom")
+    implementation("$kotlinWrappers:kotlin-react-redux")
 }
 
 kotlin {

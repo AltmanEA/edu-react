@@ -1,33 +1,31 @@
 package component
 
 import csstype.FontWeight
-import data.Student
-import data.StudentId
+import data.Course
+import data.CourseId
 import emotion.react.css
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ol
 
-external interface StudentListProps : Props {
-    var students: Array<Student>
+external interface CourseListProps : Props {
+    var courses: Array<Course>
     var marked: Array<Boolean>
-    var clickId: (StudentId) -> Unit
+    var clickId: (CourseId) -> Unit
 }
 
-val CStudentList = FC<StudentListProps>("StudentList") {props ->
+val CCourseList = FC<CourseListProps>("CourseList") {props ->
     ol {
-        props.students.forEachIndexed { index, student ->
+        props.courses.forEachIndexed { index, course ->
             li {
-                CStudentItem {
-                    this.student = student
-                }
+                +course.id
                 if (props.marked[index])
                     css {
                         fontWeight = FontWeight.bold
                     }
                 onClick = {
-                    props.clickId(student.id)
+                    props.clickId(course.id)
                 }
             }
         }

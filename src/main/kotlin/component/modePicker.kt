@@ -1,24 +1,23 @@
 package component
 
+import ChangeMode
+import data.Mode
 import org.w3c.dom.HTMLInputElement
-import react.FC
-import react.Props
-import react.StateSetter
+import react.*
 import react.dom.events.MouseEventHandler
 import react.dom.html.InputType
 import react.dom.html.ReactHTML.h3
 import react.dom.html.ReactHTML.input
 import react.dom.html.ReactHTML.span
-import react.useRef
+import react.redux.useDispatch
+import react.redux.useSelector
+import redux.AppState
+import redux.RAction
 
-external interface ModePickerProps : Props {
-    var _mode: String
-    var _setMode: StateSetter<String>
-}
-
-
-val CModePicker = FC<ModePickerProps>("ModePicker") { props ->
-    val modes = listOf("Full", "Short")
+val CModePicker = FC<Props>("ModePicker") {
+    val mode = useSelector {state: AppState -> state.mode.name  }
+    val dispatch = useDispatch<RAction, Unit>()
+    val modes = Mode.values().map { it.name }
     val refs = modes.map {
         useRef<HTMLInputElement>()
     }
@@ -27,8 +26,8 @@ val CModePicker = FC<ModePickerProps>("ModePicker") { props ->
             .find { it.current?.checked ?: false }
             ?.current?.value
             ?.let {
-                if (it != props._mode)
-                    props._setMode(it)
+                if (it != mode)
+                    dispatch(ChangeMode())
             }
     }
     h3 { +"Output Mode" }
@@ -40,7 +39,7 @@ val CModePicker = FC<ModePickerProps>("ModePicker") { props ->
                 ref = refs[index]
                 onClick = action
                 name = "outputMode"
-                if (props._mode == _mode)
+                if (mode == _mode)
                     defaultChecked = true
             }
             +_mode

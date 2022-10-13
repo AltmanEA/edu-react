@@ -1,50 +1,49 @@
 package component
 
-import csstype.Display
-import csstype.Flex
-import data.courseList
-import emotion.react.css
-import react.*
-import react.dom.html.ReactHTML.div
+import react.FC
+import react.Props
+import react.create
+import react.dom.html.ReactHTML.details
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.summary
+import react.redux.useSelector
 import react.router.Route
 import react.router.Routes
 import react.router.dom.HashRouter
-import react.router.dom.Link
+import redux.AppState
 
-val shortOutput = createContext("Full")
 
 val app = FC<Props>("App") {
-    val (mode, setMode) = useState("Full")
-    val courses = courseList.map { useState(it) }
-    CModePicker {
-        _mode = mode
-        _setMode = setMode
-    }
-    shortOutput.Provider(mode) {
-        HashRouter {
-            div {
-                css {
-                    display = Display.flex
-                }
-                courses.map {(_course, _) ->
-                    val name = _course.name
-                    Link {
-                        css {
-                            flex = Flex.minContent
-                        }
-                        +name
-                        to = name
-                    }
-                }
+    val state = useSelector { state: AppState -> state }
+    CModePicker { }
+    HashRouter {
+        CMenuList {
+            name = "Course"
+            elems = state.courses.map { it.id }.toTypedArray()
+        }
+        CMenuList {
+            name = "Student"
+            elems = state.students.map { it.id }.toTypedArray()
+        }
+        h3 {+"Add"}
+        details {
+            summary { +"Student" }
+            CAddStudent { }
+        }
+        details {
+            summary { +"Course" }
+            CAddCourse { }
+        }
+        Routes {
+            Route {
+                path = "Course/:courseId"
+                element = CCourse.create {}
             }
-            Routes {
-                    Route {
-                        path = ":name"
-                        element = CCoursePicker.create {
-                                this.courses = courses
-                        }
-                    }
+            Route{
+                path = "Student/:studentId"
+                element = CStudent.create {}
             }
         }
     }
+
 }

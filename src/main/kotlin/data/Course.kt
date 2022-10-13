@@ -1,18 +1,21 @@
 package data
 
+typealias CourseId = String
+
 data class Course(
     val name: String,
-    val students: List<Student>,
-    val marked: List<Boolean> = students.map { false }
+    val students: Array<StudentId>,
+    val marked: Array<Boolean> = Array(students.size) { false }
 ) {
-
+    val id: CourseId
+        get() = name
 }
 
 val courseList =
-    listOf(
+    arrayOf(
         "Math",
         "Phys",
         "Story"
     ).map {
-        Course(it, studentList)
+        Course(it, studentList.map { it.id }.toTypedArray())
     }
